@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.book_shop.book.mapper.BookListMapper">
+
+    <resultMap id="bookList" type="BookDTO">
+        <id     column="BOOK_CODE"  property="bookCode" />
+        <result column="BOOK_NAME"  property="bookName" />
+        <result column="BOOK_PRICE" property="bookPrice" />
+        <result column="PUBLISHER"  property="publisher" />
+        <result column="BOOK_INFO"  property="bookInfo" />
+        <result column="REG_DATE"   property="regDate" />
+        <result column="BOOK_STOCK" property="bookStock" />
+        <result column="CATE_CODE"  property="cateCode" />
+    </resultMap>
+
+    <!-- 책 리스트 조회 쿼리 -->
+    <select id="getBookList" resultMap="bookList">
+        SELECT BOOK_CODE
+            , BOOK_NAME
+            , BOOK_PRICE
+            , PUBLISHER
+            , BOOK_INFO
+            , REG_DATE
+            , BOOK_STOCK
+            , CATE_CODE
+        FROM BOOK
+        ORDER BY BOOK_NAME
+    </select>
+
+    <!-- 카테고리 하나 책 리스트 조회 쿼리 -->
+    <select id="getBook" resultMap="bookList">
+        SELECT BOOK_CODE
+            , BOOK_NAME
+            , BOOK_PRICE
+            , PUBLISHER
+            , BOOK_INFO
+            , REG_DATE
+            , BOOK_STOCK
+            , CATE_CODE
+        FROM BOOK
+        WHERE CATE_CODE = #{cateCode}
+        ORDER BY BOOK_NAME
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
