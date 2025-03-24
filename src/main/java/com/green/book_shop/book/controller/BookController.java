@@ -16,13 +16,19 @@ public class BookController {
 
   //도서 등록 api
   @PostMapping("")
-  public void regBook(BookDTO bookDTO, @RequestParam(name = "mainImg", required = false)MultipartFile mainImg , @RequestParam(name = "detailImg") MultipartFile detailImg){
+  public void regBook(
+        BookDTO bookDTO,
+        @RequestParam(name = "mainImg", required = true)MultipartFile mainImg ,
+        @RequestParam(name = "subImg", required = true) MultipartFile subImg){
     System.out.println(bookDTO);
+
     //첨부파일(도서 이미지) 업로드
     uploadUtil.fileUpload(mainImg);
-    uploadUtil.fileUpload(detailImg);
+    uploadUtil.fileUpload(subImg);
 
     //book 테이블에 데이터 insert
-//    bookService.regBook(bookDTO);
+    bookService.regBook(bookDTO);
+
+    //BOOK_IMG 테이블에 도서 이미지 정보 INSERT
   }
 }
