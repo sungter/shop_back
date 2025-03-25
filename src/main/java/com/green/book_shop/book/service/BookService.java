@@ -20,4 +20,10 @@ public interface BookService {
 
   //카테고리 삭제 기능
   public void deleteCategory(int cateCode);
+
+  //도서 이미지 등록 기능
+  public void insertImgs(BookDTO bookDTO);
+
+  //다음에 등록할 BOOK_CODE를 조회하는 기능
+  public int getNextBookCode();
 }

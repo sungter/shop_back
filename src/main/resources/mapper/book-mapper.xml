@@ -25,6 +25,8 @@
         <result column="CATE_CODE"  property="cateCode"/>
     </resultMap>
 
+
+
     <!--///////////////////////////////////////////////////////////////////////////////////-->
 
     <!-- 카테고리 정보 조회 쿼리 -->
@@ -38,13 +40,15 @@
     <!-- 도서 등록 쿼리 -->
     <insert id="regBook">
         INSERT INTO book(
-            BOOK_NAME
+            BOOK_CODE
+            , BOOK_NAME
             , BOOK_PRICE
             , PUBLISHER
             , BOOK_INFO
             , CATE_CODE
         ) VALUES (
-            #{bookName}
+            #{bookCode}
+            , #{bookName}
             , #{bookPrice}
             , #{publisher}
             , #{bookInfo}
@@ -55,13 +59,25 @@
     <!-- 도서 이미지 등록 -->
     <insert id="insertImgs">
         INSERT INTO BOOK_IMG (
-            , ORIGIN_FILE_NAME
+            ORIGIN_FILE_NAME
             , ATTACHED_FILE_NAME
             , IS_MAIN
             , BOOK_CODE
         ) VALUES
-            ('AAA.jpg', '1111-2222.jpg', 'Y', 1),
-            ('AAA.jpg', '1111-2222.jpg', 'N', 1)
+            <!-- 첨부한 파일 갯수만큼 반복해서 insert -->
+            <!-- collection : 반복을 돌릴 데이터(배열, 리스트) -->
+            <!-- collection에 작성한 글자는 쿼리의 빈값을 채우기 위해 가져온 DTO 객체의 getter를 호출한다. -->
+            <!-- item : 한 개씩 뺀 데이터 -->
+            <!-- img : bookDTO.getImgList()의 N번째 데이터 순환 -->
+            <!-- separator : 반복문이 한 번 실행될 때마다 추가할 내용 단, 마지막 반복시에는 적용하지 않는다. -->
+            <foreach collection="imgList" item="img" separator=",">
+                (
+                    #{img.originFileName}
+                    , #{img.attachedFileName}
+                    , #{img.isMain}
+                    , #{img.bookCode}
+                )
+            </foreach>
     </insert>
 
     <!--카테고리 등록 쿼리-->
@@ -98,6 +114,11 @@
         DELETE FROM BOOK_CATEGORY
         WHERE CATE_CODE = #{cateCode}
     </delete>
+
+    <!-- 다음에 들어갈 BOOK_CODE 조회 -->
+    <select id="getNextBookCode" resultType="int">
+        SELECT IFNULL(MAX(BOOK_CODE) , 0) + 1 FROM book
+    </select>
 
 </mapper>
 
