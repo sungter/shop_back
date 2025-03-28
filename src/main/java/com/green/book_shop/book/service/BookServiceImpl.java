@@ -63,4 +63,9 @@ public class BookServiceImpl implements BookService{
   public int getNextBookCode() {
     return bookMapper.getNextBookCode();
   }
+
+  @Override
+  public BookCategoryDTO getCategoryByCateCode(int cateCode) {
+    return bookMapper.getCategoryByCateCode(cateCode);
+  }
 }

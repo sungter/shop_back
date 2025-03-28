@@ -37,6 +37,14 @@
         ORDER BY CATE_CODE
     </select>
 
+    <!-- 카테고리 정보 조회 쿼리 -->
+    <select id="getCategoryByCateCode" resultMap="bookCategory">
+        SELECT CATE_CODE
+        , CATE_NAME
+        FROM BOOK_CATEGORY
+        WHERE CATE_CODE = #{cateCode}
+    </select>
+
     <!-- 도서 등록 쿼리 -->
     <insert id="regBook">
         INSERT INTO book(

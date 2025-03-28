@@ -10,4 +10,5 @@ public interface BookListService {
 
   //카테고리 선택시 책 목록 리스트 조회 기능
   public List<BookDTO> getBook(int cateCode);
+
 }

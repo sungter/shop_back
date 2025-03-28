@@ -26,4 +26,6 @@ public interface BookService {
 
   //다음에 등록할 BOOK_CODE를 조회하는 기능
   public int getNextBookCode();
+
+  public BookCategoryDTO getCategoryByCateCode(int cateCode);
 }

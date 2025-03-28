@@ -33,4 +33,6 @@ public interface BookMapper {
 
   //다음에 등록할 BOOK_CODE를 조회하는 쿼리
   public int getNextBookCode();
+
+  public BookCategoryDTO getCategoryByCateCode(int cateCode);
 }
